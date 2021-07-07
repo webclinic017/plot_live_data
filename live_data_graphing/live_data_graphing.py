@@ -1,21 +1,22 @@
 import graph_class
 
+
 def main():
-	graph = graph_class.Graph_figs(3, 'sample_data.csv', 
-		[['Gyroscope X (deg/s)', 'Gyroscope Y (deg/s)', 'Gyroscope Z (deg/s)'],
-		['Accelerometer X (g)', 'Accelerometer Y (g)', 'Accelerometer Z (g)'],
-		['Magnetometer X (G)', 'Magnetometer Y (G)', 'Magnetometer Z (G)']],
-		data_sets_per_frame=4, 
-		title=['Angular acceleration', 'Acceleration', 'Magnetic field'],
-		xlabel='Time (s)',
-		ylabel=['Gyroscope (deg/s)', 'Accelerometer (g)', 'Magnetometer (G)'],
-		use_constant_ylim=False
-		)
-	graph.show()
+    graph = graph_class.GraphFigs(3, 'data/sample_data.csv',
+                                  [['Gyroscope X (deg/s)', 'Gyroscope Y (deg/s)', 'Gyroscope Z (deg/s)'],
+                                    ['Accelerometer X (g)', 'Accelerometer Y (g)', 'Accelerometer Z (g)'],
+                                    ['Magnetometer X (G)', 'Magnetometer Y (G)', 'Magnetometer Z (G)']],
+                                  data_sets_per_frame=4,
+                                  title=['Angular acceleration', 'Acceleration', 'Magnetic field'],
+                                  xlabel='Time (s)',
+                                  ylabel=['Gyroscope (deg/s)', 'Accelerometer (g)', 'Magnetometer (G)'],
+                                  use_constant_ylim=False
+                                  )
+    graph.show()
+
 
 if __name__ == '__main__':
-	main()
-
+    main()
 
 """
 When creating a graph_class object, an graph is created automatically with pyplot.subplots()
