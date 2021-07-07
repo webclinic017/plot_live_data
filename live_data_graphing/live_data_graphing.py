@@ -10,7 +10,7 @@ def main():
                                   title=['Angular acceleration', 'Acceleration', 'Magnetic field'],
                                   xlabel='Time (s)',
                                   ylabel=['Gyroscope (deg/s)', 'Accelerometer (g)', 'Magnetometer (G)'],
-                                  use_constant_ylim=False
+                                  use_constant_y_lim=False
                                   )
     graph.show()
 
