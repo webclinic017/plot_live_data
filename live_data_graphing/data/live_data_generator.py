@@ -2,13 +2,15 @@ import time
 import pandas as pd
 
 
-def main():
-    frequency = 1000.0
-    data = pd.read_csv('sample_data.csv')
-    row = 0
-    packet_size = 4  # number of rows written each time (4 to mimic 200Hz gathering transmitted over 50Hz BLE)
+def reset_data(data):
     header = pd.DataFrame(columns=data.columns)
     header.to_csv('generated.csv', header=True, index=False)
+
+
+def generate_data(data):
+    frequency = 1000.0
+    row = 0
+    packet_size = 4
     start_time = time.time()
     while True:
         try:
@@ -18,6 +20,12 @@ def main():
             time.sleep((1.0 / frequency) - ((time.time() - start_time) % (1.0 / frequency)))
         except:
             break
+
+
+def main():
+    data = pd.read_csv('sample_data.csv')
+    reset_data(data)
+    # generate_data(data)
 
 
 if __name__ == '__main__':
