@@ -3,7 +3,10 @@ import pandas as pd
 
 
 def reset_data(data):
-    header = pd.DataFrame(columns=data.columns)
+    zero_dict = dict()
+    for i in range(10):
+        zero_dict[data.columns[i]] = 0
+    header = pd.DataFrame(zero_dict, index=[0])
     header.to_csv('generated.csv', header=True, index=False)
 
 
