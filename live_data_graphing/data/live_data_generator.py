@@ -8,24 +8,30 @@ def reset_data(data):
 
 
 def generate_data(data):
-    frequency = 1000.0
+    frequency = 50.0
+    period = 1.0/frequency
     row = 0
     packet_size = 4
-    start_time = time.time()
+    start = time.time()
+    last = 0
     while True:
         try:
+            this = time.time() - start
             towrite = data.loc[list(range(row, row + packet_size))]
             row += packet_size
             towrite.to_csv('generated.csv', header=False, index=False, mode='a')
-            time.sleep((1.0 / frequency) - ((time.time() - start_time) % (1.0 / frequency)))
-        except:
+            sleep_length = last + period - (time.time() - start)
+            time.sleep(sleep_length if sleep_length >= 0 else 0)
+            last = this
+        except KeyError:
+            print('All data written into generated.csv')
             break
 
 
 def main():
     data = pd.read_csv('sample_data.csv')
     reset_data(data)
-    # generate_data(data)
+    generate_data(data)
 
 
 if __name__ == '__main__':
