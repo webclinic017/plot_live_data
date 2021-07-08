@@ -1,4 +1,5 @@
 import pandas as pd
+from bokeh.io import show
 
 from bokeh.models import ColumnDataSource
 from bokeh.plotting import curdoc, figure
@@ -6,7 +7,9 @@ from bokeh.layouts import column
 
 
 ##############################################
-frame_update_frequency_limit = 50
+from bokeh.themes import Theme
+
+frame_update_frequency_limit = 1000
 frame_period_ms = 1000//frame_update_frequency_limit
 num_data_set_limit = 600
 
@@ -54,8 +57,12 @@ def main():
                           line_color=line_colors[j],
                           legend_label=line_labels[j],
                           source=source)
+
     doc = curdoc()
-    column_to_add = column(plots, sizing_mode='scale_both')
+    # doc.theme = Theme('theme.json')
+    doc.theme = 'dark_minimal'
+    # 'caliber', 'dark_minimal', 'light_minimal', 'night_sky', 'contrast'
+    column_to_add = column(plots, sizing_mode='stretch_both')
     doc.add_root(column_to_add)
     doc.add_periodic_callback(update, frame_period_ms)
 
