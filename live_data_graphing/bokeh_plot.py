@@ -1,14 +1,11 @@
 import pandas as pd
-from bokeh.io import show
 
 from bokeh.models import ColumnDataSource
 from bokeh.plotting import curdoc, figure
 from bokeh.layouts import column
-
+# from bokeh.themes import Theme, built_in_themes
 
 ##############################################
-from bokeh.themes import Theme
-
 frame_update_frequency_limit = 1000
 frame_period_ms = 1000//frame_update_frequency_limit
 num_data_set_limit = 600
@@ -60,7 +57,7 @@ def main():
 
     doc = curdoc()
     # doc.theme = Theme('theme.json')
-    doc.theme = 'dark_minimal'
+    # doc.theme = 'dark_minimal'
     # 'caliber', 'dark_minimal', 'light_minimal', 'night_sky', 'contrast'
     column_to_add = column(plots, sizing_mode='stretch_both')
     doc.add_root(column_to_add)
