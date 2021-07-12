@@ -1,6 +1,6 @@
 import time
 import pandas as pd
-
+import sys
 
 def reset_data(data):
     zero_dict = dict()
@@ -34,8 +34,13 @@ def generate_data(data):
 def main():
     data = pd.read_csv('sample_data.csv')
     reset_data(data)
-    generate_data(data)
+    if not reset:
+        generate_data(data)
 
 
 if __name__ == '__main__':
+    reset = False
+    if len(sys.argv) > 1:
+        if sys.argv[1].__eq__('True'):
+            reset = True
     main()

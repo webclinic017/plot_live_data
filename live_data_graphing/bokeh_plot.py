@@ -1,33 +1,31 @@
 import pandas as pd
+import json
 
 from bokeh.models import ColumnDataSource
 from bokeh.plotting import curdoc, figure
 from bokeh.layouts import column
-# from bokeh.themes import Theme, built_in_themes
+from bokeh.themes import built_in_themes
+
 
 ##############################################
-frame_update_frequency_limit = 1000
+with open('/live_data_graphing/default_settings.json') as f:
+    settings = json.load(f)
+    
+frame_update_frequency_limit = settings['frame_update_frequency_limit']
 frame_period_ms = 1000//frame_update_frequency_limit
-num_data_set_limit = 600
+num_data_set_limit = settings['num_data_set_limit']
 
-plot_width = 1500
-plot_height = 210
-index_header = 'Packet number'  # also x label
-col_headers = [['Gyroscope X (deg/s)',
-                'Gyroscope Y (deg/s)',
-                'Gyroscope Z (deg/s)', ],
-               ['Accelerometer X (g)',
-                'Accelerometer Y (g)',
-                'Accelerometer Z (g)', ],
-               ['Magnetometer X (G)',
-                'Magnetometer Y (G)',
-                'Magnetometer Z (G)'], ]
-plot_titles = ['Gyroscope', 'Accelerometer', 'Magnetometer']
-plot_y_labels = ['Angle Acceleration', 'Acceleration', 'Magnetic Field']
-line_labels = ['x', 'y', 'z']
-line_colors = ['red', 'green', 'blue']
+plot_width = settings['plot_width']
+plot_height = settings['plot_height']
+index_header = settings['index_header']  # also x label
+col_headers = settings['col_headers']
+plot_titles = settings['plot_titles']
+plot_y_labels = settings['plot_y_labels']
+line_labels = settings['line_labels']
+line_colors = settings['line_colors']
+plot_y_lims = settings['plot_y_lims']
 
-data_file_path = 'data/generated.csv'
+data_file_path = settings['data_file_path']
 plotted = 1
 source = ColumnDataSource(pd.read_csv(data_file_path, index_col=index_header))
 ##############################################
@@ -47,7 +45,8 @@ def main():
                             plot_height=plot_height,
                             title=plot_titles[i],
                             x_axis_label=index_header,
-                            y_axis_label=plot_y_labels[i]))
+                            y_axis_label=plot_y_labels[i],
+                            y_range=plot_y_lims[i]))
         for j in range(3):
             plots[i].line(index_header,
                           col_headers[i][j],
@@ -56,11 +55,11 @@ def main():
                           source=source)
 
     doc = curdoc()
-    # doc.theme = Theme('theme.json')
-    # doc.theme = 'dark_minimal'
+    # doc.theme = Theme('theme.json')  # custom theme
+    doc.theme = built_in_themes['dark_minimal']  # built in themes
     # 'caliber', 'dark_minimal', 'light_minimal', 'night_sky', 'contrast'
-    column_to_add = column(plots, sizing_mode='stretch_both')
-    doc.add_root(column_to_add)
+    doc.add_root(column(plots, sizing_mode='stretch_both'))
     doc.add_periodic_callback(update, frame_period_ms)
+
 
 main()
