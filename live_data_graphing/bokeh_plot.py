@@ -8,7 +8,7 @@ from bokeh.themes import built_in_themes
 
 
 ##############################################
-with open('/live_data_graphing/default_settings.json') as f:
+with open('default_settings.json') as f:
     settings = json.load(f)
     
 frame_update_frequency_limit = settings['frame_update_frequency_limit']

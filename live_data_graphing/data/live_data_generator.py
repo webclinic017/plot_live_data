@@ -2,12 +2,13 @@ import time
 import pandas as pd
 import sys
 
+
 def reset_data(data):
     zero_dict = dict()
     for i in range(10):
         zero_dict[data.columns[i]] = 0
     header = pd.DataFrame(zero_dict, index=[0])
-    header.to_csv('generated.csv', header=True, index=False)
+    header.to_csv('data/generated.csv', header=True, index=False)
 
 
 def generate_data(data):
@@ -22,7 +23,7 @@ def generate_data(data):
             this = time.time() - start
             towrite = data.loc[list(range(row, row + packet_size))]
             row += packet_size
-            towrite.to_csv('generated.csv', header=False, index=False, mode='a')
+            towrite.to_csv('data/generated.csv', header=False, index=False, mode='a')
             sleep_length = last + period - (time.time() - start)
             time.sleep(sleep_length if sleep_length >= 0 else 0)
             last = this
@@ -31,16 +32,16 @@ def generate_data(data):
             break
 
 
-def main():
-    data = pd.read_csv('sample_data.csv')
+def main(reset=False):
+    data = pd.read_csv('data/sample_data.csv')
     reset_data(data)
     if not reset:
         generate_data(data)
 
 
 if __name__ == '__main__':
-    reset = False
+    param = False
     if len(sys.argv) > 1:
         if sys.argv[1].__eq__('True'):
-            reset = True
-    main()
+            param = True
+    main(reset=param)

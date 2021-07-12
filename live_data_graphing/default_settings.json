@@ -20,5 +20,5 @@
   "plot_y_lims": [[-1000, 1000],
                   [  -10,   10],
                   [   -1,    1]],
-  "data_file_path": "C:/Users/Jimmy Li/PycharmProjects/plot_live_data/live_data_graphing/data/generated.csv"
+  "data_file_path": "data/generated.csv"
 }

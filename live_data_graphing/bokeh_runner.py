@@ -10,7 +10,6 @@ class Runner:
         print('Bokeh plot server closed.')
 
     def __init__(self, bokeh_plot_path):
-        # 'C:\\Users\\Jimmy Li\\PycharmProjects\\plot_live_data\\live_data_graphing\\bokeh_plot.py'
         command = f'bokeh serve --show \"{bokeh_plot_path}\"'
         self.bokeh_serve = subprocess.Popen(command, shell=False)
 
