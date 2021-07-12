@@ -10,6 +10,7 @@ from bokeh.themes import built_in_themes
 ##############################################
 with open('/live_data_graphing/default_settings.json') as f:
     settings = json.load(f)
+    
 frame_update_frequency_limit = settings['frame_update_frequency_limit']
 frame_period_ms = 1000//frame_update_frequency_limit
 num_data_set_limit = settings['num_data_set_limit']
@@ -23,7 +24,6 @@ plot_y_labels = settings['plot_y_labels']
 line_labels = settings['line_labels']
 line_colors = settings['line_colors']
 plot_y_lims = settings['plot_y_lims']
-
 
 data_file_path = settings['data_file_path']
 plotted = 1
