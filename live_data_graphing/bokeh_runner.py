@@ -14,8 +14,8 @@ class Runner:
         command = f'bokeh serve --show \"{bokeh_plot_path}\"'
         self.bokeh_serve = subprocess.Popen(command, shell=False)
 
+# sample code:
 #
-# sample code
 # import time
 #
 # from live_data_graphing import bokeh_runner
