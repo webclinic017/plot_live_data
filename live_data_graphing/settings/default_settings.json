@@ -19,6 +19,5 @@
   "line_colors": ["red", "green", "blue"],
   "plot_y_lims": [[-1000, 1000],
                   [  -10,   10],
-                  [   -1,    1]],
-  "data_file_path": "data/generated.csv"
+                  [   -1,    1]]
 }

@@ -8,7 +8,7 @@ def reset_data(data):
     for i in range(10):
         zero_dict[data.columns[i]] = 0
     header = pd.DataFrame(zero_dict, index=[0])
-    header.to_csv('data/generated.csv', header=True, index=False)
+    header.to_csv('sample_data/generated.csv', header=True, index=False)
 
 
 def generate_data(data):
@@ -23,7 +23,7 @@ def generate_data(data):
             this = time.time() - start
             towrite = data.loc[list(range(row, row + packet_size))]
             row += packet_size
-            towrite.to_csv('data/generated.csv', header=False, index=False, mode='a')
+            towrite.to_csv('sample_data/generated.csv', header=False, index=False, mode='a')
             sleep_length = last + period - (time.time() - start)
             time.sleep(sleep_length if sleep_length >= 0 else 0)
             last = this
@@ -33,7 +33,7 @@ def generate_data(data):
 
 
 def main(reset=False):
-    data = pd.read_csv('data/sample_data.csv')
+    data = pd.read_csv('sample_data/sample_data.csv')
     reset_data(data)
     if not reset:
         generate_data(data)
